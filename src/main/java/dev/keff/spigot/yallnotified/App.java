@@ -6,8 +6,6 @@ import java.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import dev.keff.spigot.yallnotified.commands.NetherCoordsCommand;
-
 public class App extends JavaPlugin {
     @Override
     public void onEnable() {
@@ -30,16 +28,17 @@ public class App extends JavaPlugin {
 
         // Register event listener
         getServer().getPluginManager().registerEvents(new ConnectionListener(notifier, config), this);
-        this.getCommand("ncoords").setExecutor(new NetherCoordsCommand());
 
-        // Setup update checker
-        new UpdateChecker(this, 77962).getVersion(version -> {
-            if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                logger.info("Update detected! You are using version " + this.getDescription().getVersion()
-                        + " and the latest version is " + version
-                        + "! Download it at https://www.spigotmc.org/resources/bettersleeping-1-12-1-15.60837/");
-            }
-        });
+        // Setup update checker if enabled in config
+        if (config.getBoolean("update_checker")) {
+            new UpdateChecker(this, 77962).getVersion(version -> {
+                if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                    logger.info("Update detected! You are using version " + this.getDescription().getVersion()
+                            + " and the latest version is " + version
+                            + "! Download it at https://www.spigotmc.org/resources/bettersleeping-1-12-1-15.60837/");
+                }
+            });
+        }
     }
 
     @Override
