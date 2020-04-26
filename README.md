@@ -34,17 +34,13 @@ _Items unchecked not yet implemented_
 ## Config
 ```yaml
 # config.yml
+
+# Config for plugin
+update_checker: true
 telegram:                   # Config for Telegram notifier
     enabled: false          # enable this notifier
     token: TELEGRAM_TOKEN   # telegram bot token
     chat_ids: []            # list of chat ids to wich to notify
-# Config for plugin
-update_checker: true
-
-telegram:
-    enabled: false
-    token: TELEGRAM_TOKEN
-    chat_ids: []
     events:
         PlayerJoinEvent: false
         PlayerQuitEvent: false
