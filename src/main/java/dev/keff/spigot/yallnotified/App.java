@@ -36,7 +36,7 @@ public class App extends JavaPlugin {
                 if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
                     logger.info("Update detected! You are using version " + this.getDescription().getVersion()
                             + " and the latest version is " + version
-                            + "! Download it at https://www.spigotmc.org/resources/bettersleeping-1-12-1-15.60837/");
+                            + "! Download it at https://www.spigotmc.org/resources/yallnotified.77962/");
                 }
             });
         }

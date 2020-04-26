@@ -1,9 +1,9 @@
 package dev.keff.spigot.yallnotified;
 
 import java.util.HashMap;
+import java.util.Map;
 
-import com.ibm.icu.text.MessageFormat;
-
+import org.apache.commons.lang.text.StrSubstitutor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
@@ -22,11 +22,15 @@ public class ConnectionListener implements Listener {
     }
 
     public String formatMessage(String path, String playerName) {
-        MessageFormat messageFormat = new MessageFormat(config.getString(path));
-        HashMap<String, String> args = new HashMap<String, String>();
-        args.put("username", playerName);
+        String template = config.getString(path);
+        Bukkit.getLogger().info("template " + config.getString(template));
 
-        return messageFormat.format(args);
+        Map<String, String> values = new HashMap<>();
+        values.put("username", playerName);
+
+        String message = StrSubstitutor.replace(template, values, "{", "}");
+
+        return message;
     }
 
     @EventHandler
