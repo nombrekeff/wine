@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class ConnectionListener implements Listener {
+public class EventListener implements Listener {
 
     static String EVENT_ON_JOIN = "onJoin";
 
@@ -26,7 +26,7 @@ public class ConnectionListener implements Listener {
     FileConfiguration config;
     Logger logger;
 
-    ConnectionListener(Notifier notifier, FileConfiguration config) {
+    EventListener(Notifier notifier, FileConfiguration config) {
         this.notifier = notifier;
         this.config = config;
         this.logger = Bukkit.getLogger();

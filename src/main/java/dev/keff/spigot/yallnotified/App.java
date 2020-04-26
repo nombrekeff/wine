@@ -28,7 +28,7 @@ public class App extends JavaPlugin {
         }
 
         // Register event listener
-        getServer().getPluginManager().registerEvents(new ConnectionListener(notifier, config), this);
+        getServer().getPluginManager().registerEvents(new EventListener(notifier, config), this);
 
         // Setup update checker if enabled in config
         if (config.getBoolean("update_checker")) {
