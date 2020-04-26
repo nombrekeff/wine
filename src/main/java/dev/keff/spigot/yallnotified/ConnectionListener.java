@@ -1,44 +1,92 @@
 package dev.keff.spigot.yallnotified;
 
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import org.apache.commons.lang.text.StrSubstitutor;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class ConnectionListener implements Listener {
 
+    static String EVENT_ON_JOIN = "onJoin";
+
     Notifier notifier;
     FileConfiguration config;
+    Logger logger;
 
     ConnectionListener(Notifier notifier, FileConfiguration config) {
         this.notifier = notifier;
         this.config = config;
+        this.logger = Bukkit.getLogger();
+    }
+
+    public String formatMessage(String path, Map<String, String> values) {
+        String template = config.getString(path);
+        String message = StrSubstitutor.replace(template, values, "{", "}");
+        return message;
+    }
+
+    public void notifyPlayerEvent(PlayerEvent event) {
+        String eventName = event.getEventName();
+        this.logger.info("eventName: " + eventName);
+
+        if (config.getBoolean("telegram.events." + eventName)) {
+            String name = event.getPlayer().getName();
+            Map<String, String> values = new HashMap<>();
+            values.put("name", name);
+
+            String outputMsg = formatMessage("telegram.message_formats." + eventName, values);
+            notifier.notify(outputMsg);
+        }
+    }
+
+    public void notifyEntityEvent(EntityEvent event) {
+        String eventName = event.getEventName();
+        this.logger.info("eventName: " + eventName);
+
+        if (config.getBoolean("telegram.events." + eventName)) {
+            Entity entity = event.getEntity();
+            String name = entity.getName();
+            Location deathLocation = entity.getLocation();
+
+            Map<String, String> values = new HashMap<>();
+            values.put("name", name);
+
+            values.put("death_x", String.format("%.2f", deathLocation.getX()));
+            values.put("death_y", String.format("%.2f", deathLocation.getY()));
+            values.put("death_z", String.format("%.2f", deathLocation.getZ()));
+            values.put("death_cause", event.getEntity().getLastDamageCause().getCause().name());
+
+            String outputMsg = formatMessage("telegram.message_formats." + eventName, values);
+            notifier.notify(outputMsg);
+        }
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (config.getBoolean("telegram.events.onJoin")) {
-            String playerName = event.getPlayer().getName();
-            String msg = "Hey there, " + playerName + ", welcome!";
-
-            Bukkit.getLogger().info(msg);
-            event.getPlayer().sendMessage(msg);
-            notifier.notify("A player Joined: **" + playerName + "**");
-        }
-
+        this.notifyPlayerEvent(event);
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        if (config.getBoolean("telegram.events.onQuit")) {
-            String playerName = event.getPlayer().getName();
-            String msg = "Bye bye, " + playerName;
-
-            Bukkit.getLogger().info(msg);
-            event.getPlayer().sendMessage(msg);
-            notifier.notify("A player Left: **" + playerName + "**");
-        }
+        this.notifyPlayerEvent(event);
     }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        this.notifyEntityEvent(event);
+    }
+
 }

@@ -9,22 +9,23 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class App extends JavaPlugin {
     @Override
     public void onEnable() {
-        Notifier notifier = new EmptyNotifier();
         FileConfiguration config = getConfig();
         Boolean TG_ENABLED = config.getBoolean("telegram.enabled");
         Logger logger = getLogger();
+        Notifier notifier = new EmptyNotifier(config);
 
+        // Save config
         config.options().copyDefaults(true);
         this.saveConfig();
 
+        // Add telegram notifier if enabled
         if (TG_ENABLED == true) {
             String TG_TOKEN = config.getString("telegram.token");
             List<String> TG_CHAT_IDS = config.getStringList("telegram.chat_ids");
-            notifier = new TelegramNotifier(TG_TOKEN, TG_CHAT_IDS);
+            notifier = new TelegramNotifier(TG_TOKEN, TG_CHAT_IDS, config);
+
             logger.info("[Telegram Notifier]: Enabled");
         }
-
-        logger.info("Enabled!");
 
         // Register event listener
         getServer().getPluginManager().registerEvents(new ConnectionListener(notifier, config), this);
@@ -35,10 +36,12 @@ public class App extends JavaPlugin {
                 if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
                     logger.info("Update detected! You are using version " + this.getDescription().getVersion()
                             + " and the latest version is " + version
-                            + "! Download it at https://www.spigotmc.org/resources/bettersleeping-1-12-1-15.60837/");
+                            + "! Download it at https://www.spigotmc.org/resources/yallnotified.77962/");
                 }
             });
         }
+
+        logger.info("Enabled!");
     }
 
     @Override
