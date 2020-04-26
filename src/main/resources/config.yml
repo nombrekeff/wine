@@ -1,0 +1,7 @@
+telegram:
+    enabled: false
+    token: TELEGRAM_TOKEN
+    chat_ids: []
+    events:
+        onJoin: true
+        onQuit: true
