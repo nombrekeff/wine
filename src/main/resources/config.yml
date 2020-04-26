@@ -6,8 +6,8 @@ telegram:
     token: TELEGRAM_TOKEN
     chat_ids: []
     events:
-        PlayerJoinEvent: true
-        PlayerQuitEvent: true
+        PlayerJoinEvent: false
+        PlayerQuitEvent: false
         PlayerDeathEvent: false
     message_formats:
         PlayerJoinEvent: '{name}, joined the server!'
