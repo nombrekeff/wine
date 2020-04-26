@@ -1,5 +1,6 @@
 package dev.keff.spigot.yallnotified;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -9,26 +10,32 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class App extends JavaPlugin {
     @Override
     public void onEnable() {
-        FileConfiguration config = getConfig();
-        Boolean TG_ENABLED = config.getBoolean("telegram.enabled");
         Logger logger = getLogger();
-        Notifier notifier = new EmptyNotifier(config);
+        FileConfiguration config = getConfig();
+        List<Notifier> notifiers = new ArrayList<Notifier>();
 
         // Save config
         config.options().copyDefaults(true);
         this.saveConfig();
 
-        // Add telegram notifier if enabled
-        if (TG_ENABLED == true) {
+        // Only add telegram notifier if enabled
+        if (config.getBoolean("telegram.enabled")) {
             String TG_TOKEN = config.getString("telegram.token");
             List<String> TG_CHAT_IDS = config.getStringList("telegram.chat_ids");
-            notifier = new TelegramNotifier(TG_TOKEN, TG_CHAT_IDS, config);
-
+            notifiers.add(new TelegramNotifier(TG_TOKEN, TG_CHAT_IDS, config));
             logger.info("[Telegram Notifier]: Enabled");
         }
 
+        // Only add discord notifier if enabled
+        if (config.getBoolean("discord.enabled")) {
+            // String TG_TOKEN = config.getString("telegram.token");
+            // List<String> TG_CHAT_IDS = config.getStringList("telegram.chat_ids");
+            // notifiers.add(new TelegramNotifier(TG_TOKEN, TG_CHAT_IDS, config));
+            // logger.info("[Telegram Notifier]: Enabled");
+        }
+
         // Register event listener
-        getServer().getPluginManager().registerEvents(new EventListener(notifier, config), this);
+        getServer().getPluginManager().registerEvents(new EventListener(notifiers, config), this);
 
         // Setup update checker if enabled in config
         if (config.getBoolean("update_checker")) {

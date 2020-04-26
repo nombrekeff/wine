@@ -1,6 +1,10 @@
 # Config for plugin
 update_checker: true
 
+discord:
+    enabled: false
+    token: TOKEN
+
 telegram:
     enabled: false
     token: TELEGRAM_TOKEN

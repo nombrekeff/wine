@@ -1,7 +1,7 @@
 package dev.keff.spigot.yallnotified;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -19,15 +19,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class EventListener implements Listener {
-
-    static String EVENT_ON_JOIN = "onJoin";
-
-    Notifier notifier;
+    List<Notifier> notifiers;
     FileConfiguration config;
     Logger logger;
 
-    EventListener(Notifier notifier, FileConfiguration config) {
-        this.notifier = notifier;
+    EventListener(List<Notifier> notifiers, FileConfiguration config) {
+        this.notifiers = notifiers;
         this.config = config;
         this.logger = Bukkit.getLogger();
     }
@@ -48,7 +45,7 @@ public class EventListener implements Listener {
             values.put("name", name);
 
             String outputMsg = formatMessage("telegram.message_formats." + eventName, values);
-            notifier.notify(outputMsg);
+            this.notifyToAll(outputMsg);
         }
     }
 
@@ -70,7 +67,13 @@ public class EventListener implements Listener {
             values.put("death_cause", event.getEntity().getLastDamageCause().getCause().name());
 
             String outputMsg = formatMessage("telegram.message_formats." + eventName, values);
-            notifier.notify(outputMsg);
+            this.notifyToAll(outputMsg);
+        }
+    }
+
+    public void notifyToAll(String message) {
+        for (int index = 0; index < notifiers.size(); index++) {
+            notifiers.get(index).notify(message);
         }
     }
 

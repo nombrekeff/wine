@@ -2,10 +2,16 @@ package dev.keff.spigot.yallnotified;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class DiscordNotifier extends Notifier {
+import discord4j.core.DiscordClient;
+import discord4j.core.DiscordClientBuilder;
 
-    public DiscordNotifier(FileConfiguration config) {
+public class DiscordNotifier extends Notifier {
+    DiscordClient client;
+
+    public DiscordNotifier(String token, FileConfiguration config) {
         super(config);
+        client = DiscordClientBuilder.create(token).build();
+        client.login().block();
     }
 
     @Override
