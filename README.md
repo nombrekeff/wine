@@ -13,7 +13,7 @@ _Items unchecked not yet implemented_
 
 * **Notifiers:**
   - [x] Telegram Notifier
-  - [ ] Discord Notifier
+  - [ ] Discord Notifier <kbd>WIP</kbd>
   - [ ] Webhook Notifier
   - [ ] Http Notifier
   - [ ] Custom Messages
