@@ -1,3 +1,9 @@
+# Config for plugin
+update_checker: true
+
+
+
+
 telegram:
     enabled: false
     token: TELEGRAM_TOKEN
@@ -5,3 +11,6 @@ telegram:
     events:
         onJoin: true
         onQuit: true
+    message_formats:
+        onJoin: '{username}, joined the server!'
+        onQuit: '{username}, left the server!'
