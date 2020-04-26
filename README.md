@@ -24,7 +24,7 @@ _Items unchecked not yet implemented_
 
 
 ## Getting Started
-1. Download [latest release]()
+1. Download [latest release](https://github.com/nombrekeff/spigot-event-notifier/releases)
 2. Copy `YallNotified.jar` to `server/plugins` folder
 3. Restart server
 4. A config file is generated under `server/plugins/YallNotified/config.yml`, see [config](#config).
