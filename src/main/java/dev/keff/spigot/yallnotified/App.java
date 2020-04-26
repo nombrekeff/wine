@@ -1,6 +1,7 @@
 package dev.keff.spigot.yallnotified;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +14,7 @@ public class App extends JavaPlugin {
         Notifier notifier = new EmptyNotifier();
         FileConfiguration config = getConfig();
         Boolean TG_ENABLED = config.getBoolean("telegram.enabled");
+        Logger logger = getLogger();
 
         config.options().copyDefaults(true);
         this.saveConfig();
@@ -21,14 +23,23 @@ public class App extends JavaPlugin {
             String TG_TOKEN = config.getString("telegram.token");
             List<String> TG_CHAT_IDS = config.getStringList("telegram.chat_ids");
             notifier = new TelegramNotifier(TG_TOKEN, TG_CHAT_IDS);
-            getLogger().info("[Telegram Notifier]: Enabled");
+            logger.info("[Telegram Notifier]: Enabled");
         }
 
-        getLogger().info("Enabled!");
+        logger.info("Enabled!");
 
         // Register event listener
         getServer().getPluginManager().registerEvents(new ConnectionListener(notifier, config), this);
         this.getCommand("ncoords").setExecutor(new NetherCoordsCommand());
+
+        // Setup update checker
+        new UpdateChecker(this, 77962).getVersion(version -> {
+            if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                logger.info("Update detected! You are using version " + this.getDescription().getVersion()
+                        + " and the latest version is " + version
+                        + "! Download it at https://www.spigotmc.org/resources/bettersleeping-1-12-1-15.60837/");
+            }
+        });
     }
 
     @Override
