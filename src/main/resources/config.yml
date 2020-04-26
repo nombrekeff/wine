@@ -1,16 +1,15 @@
 # Config for plugin
 update_checker: true
 
-
-
-
 telegram:
     enabled: false
     token: TELEGRAM_TOKEN
     chat_ids: []
     events:
-        onJoin: true
-        onQuit: true
+        PlayerJoinEvent: true
+        PlayerQuitEvent: true
+        PlayerDeathEvent: false
     message_formats:
-        onJoin: '{username}, joined the server!'
-        onQuit: '{username}, left the server!'
+        PlayerJoinEvent: '{name}, joined the server!'
+        PlayerQuitEvent: '{name}, left the server!'
+        PlayerDeathEvent: '{name} died at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
