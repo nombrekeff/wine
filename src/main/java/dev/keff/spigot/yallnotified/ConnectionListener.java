@@ -1,5 +1,6 @@
 package dev.keff.spigot.yallnotified;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -62,10 +63,11 @@ public class ConnectionListener implements Listener {
 
             Map<String, String> values = new HashMap<>();
             values.put("name", name);
-            values.put("death_x", Double.toString(deathLocation.getX()));
-            values.put("death_y", Double.toString(deathLocation.getY()));
-            values.put("death_z", Double.toString(deathLocation.getZ()));
-            values.put("death_cause", event.getEntity().getLastDamageCause().toString());
+
+            values.put("death_x", String.format("%.2f", deathLocation.getX()));
+            values.put("death_y", String.format("%.2f", deathLocation.getY()));
+            values.put("death_z", String.format("%.2f", deathLocation.getZ()));
+            values.put("death_cause", event.getEntity().getLastDamageCause().getCause().name());
 
             String outputMsg = formatMessage("telegram.message_formats." + eventName, values);
             notifier.notify(outputMsg);
