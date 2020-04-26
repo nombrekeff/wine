@@ -37,7 +37,19 @@ telegram:                   # Config for Telegram notifier
     enabled: false          # enable this notifier
     token: TELEGRAM_TOKEN   # telegram bot token
     chat_ids: []            # list of chat ids to wich to notify
-    events:                 # list of events (you can enable/disable any events)
-        onJoin: true            
-        onQuit: true
+# Config for plugin
+update_checker: true
+
+telegram:
+    enabled: false
+    token: TELEGRAM_TOKEN
+    chat_ids: []
+    events:
+        PlayerJoinEvent: false
+        PlayerQuitEvent: false
+        PlayerDeathEvent: false
+    message_formats:
+        PlayerJoinEvent: '{name}, joined the server!'
+        PlayerQuitEvent: '{name}, left the server!'
+        PlayerDeathEvent: '{name} died at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
 ```
