@@ -1,12 +1,18 @@
 # Config for plugin
 update_checker: true
 
-ignored_players: # ignores events for this players (for all notifiers)
+ignored_players: # ignores events for players (for all notifiers)
     - nombrekeff
 
 discord:
     enabled: false
     token: TOKEN
+
+webhook:
+    enabled: false
+    enpoint: https://webhook.site/d50cdcbe-6d53-4a23-8d67-eec726235f26
+    method: POST
+    encoding: json # json|text|base64
 
 telegram:
     enabled: false
@@ -20,5 +26,5 @@ telegram:
         PlayerJoinEvent: '{name}, joined the server!'
         PlayerQuitEvent: '{name}, left the server!'
         PlayerDeathEvent: '{name} died at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
-    ignored_players:  # ignores events for this players (for this notifiers)
+    ignored_players:  # ignores events for players (for this notifiers)
         - nombrekeff

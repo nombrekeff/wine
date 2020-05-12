@@ -34,6 +34,14 @@ public class App extends JavaPlugin {
             // logger.info("[Telegram Notifier]: Enabled");
         }
 
+        // webhook notifier
+        if (config.getBoolean("webhook.enabled")) {
+            // String TG_TOKEN = config.getString("telegram.token");
+            // List<String> TG_CHAT_IDS = config.getStringList("telegram.chat_ids");
+            // notifiers.add(new TelegramNotifier(TG_TOKEN, TG_CHAT_IDS, config));
+            // logger.info("[Telegram Notifier]: Enabled");
+        }
+
         // Register event listener
         getServer().getPluginManager().registerEvents(new EventListener(notifiers, config), this);
 

@@ -36,11 +36,16 @@ public class EventListener implements Listener {
     }
 
     /**
-     * Check wether player is ignored in notifier
+     * Check wether player is ignored
      * 
      * @default true
      */
     boolean isUserNotifiable(String name) {
+        if (this.config.isList("ignored_players")) {
+            List<String> ignoredUsers = this.config.getStringList("ignored_players");
+            return !ignoredUsers.contains(name);
+        }
+
         if (this.config.isList("telegram.ignored_players")) {
             List<String> ignoredUsers = this.config.getStringList("telegram.ignored_players");
             return !ignoredUsers.contains(name);
