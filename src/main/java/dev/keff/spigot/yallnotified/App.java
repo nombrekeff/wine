@@ -10,9 +10,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import dev.keff.spigot.yallnotified.commands.IgnorePlayerCommand;
-import dev.keff.spigot.yallnotified.exceptions.MissingConfigException;
 import dev.keff.spigot.yallnotified.notifiers.TelegramNotifier;
 import dev.keff.spigot.yallnotified.notifiers.WebhookNotifier;
+import dev.keff.spigot.yallnotified.notifiers.Notifier;
 
 public class App extends JavaPlugin {
 
@@ -20,9 +20,11 @@ public class App extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Logger logger = getLogger();
-        FileConfiguration config = getConfig();
+        Logger logger = this.getLogger();
+        FileConfiguration config = this.getConfig();
         List<Notifier> notifiers = new ArrayList<Notifier>();
+
+        logger.info("Enabling...");
 
         // Save config
         config.options().copyDefaults(true);
@@ -32,8 +34,8 @@ public class App extends JavaPlugin {
         if (config.getBoolean("telegram.enabled")) {
             try {
                 notifiers.add(new TelegramNotifier(config));
-            } catch (MissingConfigException e) {
-                logger.log(Level.SEVERE, e.getMessage());
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "ERR: " + e.getMessage());
                 e.printStackTrace();
             }
             logger.info("[Telegram Notifier]: Enabled");
@@ -65,8 +67,10 @@ public class App extends JavaPlugin {
         aliases.add("/yn");
 
         PluginCommand command = this.getCommand("/yn");
+        IgnorePlayerCommand cmd = new IgnorePlayerCommand(config);
+        command.setTabCompleter(cmd);
         command.setAliases(aliases);
-        command.setExecutor(new IgnorePlayerCommand(config));
+        command.setExecutor(cmd);
 
         // Setup update checker if enabled in config
         if (config.getBoolean("update_checker")) {

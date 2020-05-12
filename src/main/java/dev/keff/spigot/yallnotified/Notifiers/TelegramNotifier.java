@@ -3,9 +3,6 @@ package dev.keff.spigot.yallnotified.notifiers;
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
-
-import dev.keff.spigot.yallnotified.Notifier;
-import dev.keff.spigot.yallnotified.exceptions.MissingConfigException;
 import dev.keff.spigot.yallnotified.HttpRequester;
 
 public class TelegramNotifier extends Notifier {
@@ -13,10 +10,10 @@ public class TelegramNotifier extends Notifier {
     String token;
     List<String> chatIds;
 
-    public TelegramNotifier(FileConfiguration config) throws MissingConfigException {
+    public TelegramNotifier(FileConfiguration config) throws Exception {
         super("telegram", config);
         if (!config.isSet("telegram.token")) {
-            throw new MissingConfigException("[TelegramNotifier] Config 'telegram.token' is required if enabled");
+            throw new Exception("[TelegramNotifier] Config 'telegram.token' is required if enabled");
         }
 
         this.chatIds = config.getStringList("telegram.chat_ids");
@@ -29,7 +26,7 @@ public class TelegramNotifier extends Notifier {
     }
 
     @Override
-    protected void notify(String message) {
+    public void notify(String message) {
         for (int i = 0; i < this.chatIds.size(); i++) {
             String chatId = this.chatIds.get(i);
             String url = this.createUrlForChat(chatId, message);

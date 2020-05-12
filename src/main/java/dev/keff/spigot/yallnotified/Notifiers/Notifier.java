@@ -1,4 +1,4 @@
-package dev.keff.spigot.yallnotified;
+package dev.keff.spigot.yallnotified.notifiers;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -8,7 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 abstract public class Notifier {
     public Logger logger;
     public String notifierName;
-    protected FileConfiguration config;
+    public FileConfiguration config;
 
     public Notifier(String name, FileConfiguration config) {
         this.logger = Bukkit.getLogger();
@@ -25,5 +25,5 @@ abstract public class Notifier {
         return true;
     }
 
-    protected abstract void notify(String message);
+    public abstract void notify(String message);
 }

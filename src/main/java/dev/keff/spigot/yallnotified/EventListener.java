@@ -18,6 +18,8 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import dev.keff.spigot.yallnotified.notifiers.Notifier;
+
 public class EventListener implements Listener {
     List<Notifier> notifiers;
     FileConfiguration config;

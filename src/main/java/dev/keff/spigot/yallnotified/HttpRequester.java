@@ -5,33 +5,49 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.bukkit.Bukkit;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class HttpRequester {
     String token;
-    private final OkHttpClient httpClient = new OkHttpClient();
+    HttpClient httpclient = HttpClients.createDefault();
 
-    public void sendPost(String url, RequestBody formBody) throws Exception {
-        // form parameters
-        // RequestBody formBody = new FormBody.Builder().add("username",
-        // "abc").add("password", "123")
-        // .add("custom", "secret").build();
+    // TODO
+    public void sendPost(String url, String message) throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost httppost = new HttpPost(url);
 
-        Request request = new Request.Builder().url(url).post(formBody).build();
-        try (Response response = httpClient.newCall(request).execute()) {
-            if (!response.isSuccessful())
-                throw new IOException("Unexpected code " + response);
+        List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+        nvps.add(new BasicNameValuePair("message", message));
+        httppost.setEntity(new UrlEncodedFormEntity(nvps));
 
-            // Get response body
-            System.out.println(response.body().string());
+        CloseableHttpResponse response = httpclient.execute(httppost);
+
+        try {
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                InputStream instream = entity.getContent();
+                try {
+                    // do something useful
+                } finally {
+                    instream.close();
+                }
+            }
+        } finally {
+            response.close();
         }
-
     }
 
     public void post(String urlString) {
