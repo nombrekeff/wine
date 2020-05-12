@@ -35,6 +35,20 @@ public class EventListener implements Listener {
         return message;
     }
 
+    /**
+     * Check wether player is ignored in notifier
+     * 
+     * @default true
+     */
+    boolean isUserNotifiable(String name) {
+        if (this.config.isList("telegram.ignored_players")) {
+            List<String> ignoredUsers = this.config.getStringList("telegram.ignored_players");
+            return !ignoredUsers.contains(name);
+        }
+
+        return true;
+    }
+
     public void notifyPlayerEvent(PlayerEvent event) {
         String eventName = event.getEventName();
         this.logger.info("eventName: " + eventName);
@@ -79,17 +93,22 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        this.notifyPlayerEvent(event);
+        if (this.isUserNotifiable(event.getPlayer().getName())) {
+            this.notifyPlayerEvent(event);
+        }
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        this.notifyPlayerEvent(event);
+        if (this.isUserNotifiable(event.getPlayer().getName())) {
+            this.notifyPlayerEvent(event);
+        }
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        this.notifyEntityEvent(event);
+        if (this.isUserNotifiable(event.getEntity().getName())) {
+            this.notifyEntityEvent(event);
+        }
     }
-
 }
