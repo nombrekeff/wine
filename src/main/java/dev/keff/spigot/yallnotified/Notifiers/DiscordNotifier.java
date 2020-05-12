@@ -10,14 +10,13 @@ public class DiscordNotifier extends Notifier {
     DiscordClient client;
 
     public DiscordNotifier(String token, FileConfiguration config) {
-        super(config);
+        super("discord", config);
         client = DiscordClientBuilder.create(token).build();
         client.login().block();
     }
 
     @Override
-	protected
-    void notify(String message) {
+    protected void notify(String message) {
         // TODO Auto-generated method stub
     }
 }

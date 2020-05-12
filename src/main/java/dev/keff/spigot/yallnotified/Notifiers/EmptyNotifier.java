@@ -6,7 +6,7 @@ import dev.keff.spigot.yallnotified.Notifier;
 
 public class EmptyNotifier extends Notifier {
     public EmptyNotifier(FileConfiguration config) {
-        super(config);
+        super("empty", config);
     }
 
     @Override

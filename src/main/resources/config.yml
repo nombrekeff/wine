@@ -25,6 +25,6 @@ telegram:
     message_formats:
         PlayerJoinEvent: '{name}, joined the server!'
         PlayerQuitEvent: '{name}, left the server!'
-        PlayerDeathEvent: '{name} died at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
+        PlayerDeathEvent: '{name} died in {world}, at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
     ignored_players:  # ignores events for players and entities (for this notifiers)
         - nombrekeff

@@ -40,14 +40,9 @@ public class EventListener implements Listener {
      * 
      * @default true
      */
-    boolean isUserNotifiable(String name) {
+    boolean isUserNotifiableGlobaly(String name) {
         if (this.config.isList("ignored_players")) {
             List<String> ignoredUsers = this.config.getStringList("ignored_players");
-            return !ignoredUsers.contains(name);
-        }
-
-        if (this.config.isList("telegram.ignored_players")) {
-            List<String> ignoredUsers = this.config.getStringList("telegram.ignored_players");
             return !ignoredUsers.contains(name);
         }
 
@@ -58,13 +53,13 @@ public class EventListener implements Listener {
         String eventName = event.getEventName();
         this.logger.info("eventName: " + eventName);
 
-        if (config.getBoolean("telegram.events." + eventName)) {
+        if (config.isSet("telegram.events." + eventName)) {
             String name = event.getPlayer().getName();
             Map<String, String> values = new HashMap<>();
             values.put("name", name);
 
             String outputMsg = formatMessage("telegram.message_formats." + eventName, values);
-            this.notifyToAll(outputMsg);
+            this.notifyToAll(name, outputMsg);
         }
     }
 
@@ -72,47 +67,50 @@ public class EventListener implements Listener {
         String eventName = event.getEventName();
         this.logger.info("eventName: " + eventName);
 
-        if (config.getBoolean("telegram.events." + eventName)) {
+        if (config.isSet("telegram.events." + eventName)) {
             Entity entity = event.getEntity();
             String name = entity.getName();
             Location deathLocation = entity.getLocation();
 
             Map<String, String> values = new HashMap<>();
             values.put("name", name);
-
             values.put("death_x", String.format("%.2f", deathLocation.getX()));
             values.put("death_y", String.format("%.2f", deathLocation.getY()));
             values.put("death_z", String.format("%.2f", deathLocation.getZ()));
-            values.put("death_cause", event.getEntity().getLastDamageCause().getCause().name());
+            values.put("death_cause", entity.getLastDamageCause().getCause().name());
+            values.put("world", deathLocation.getWorld().getName());
 
             String outputMsg = formatMessage("telegram.message_formats." + eventName, values);
-            this.notifyToAll(outputMsg);
+            this.notifyToAll(name, outputMsg);
         }
     }
 
-    public void notifyToAll(String message) {
+    public void notifyToAll(String user, String message) {
         for (int index = 0; index < notifiers.size(); index++) {
-            notifiers.get(index).notify(message);
+            Notifier notif = notifiers.get(index);
+            if (notif.canNotifyUser(user)) {
+                notif.notify(message);
+            }
         }
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (this.isUserNotifiable(event.getPlayer().getName())) {
+        if (this.isUserNotifiableGlobaly(event.getPlayer().getName())) {
             this.notifyPlayerEvent(event);
         }
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        if (this.isUserNotifiable(event.getPlayer().getName())) {
+        if (this.isUserNotifiableGlobaly(event.getPlayer().getName())) {
             this.notifyPlayerEvent(event);
         }
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        if (this.isUserNotifiable(event.getEntity().getName())) {
+        if (this.isUserNotifiableGlobaly(event.getEntity().getName())) {
             this.notifyEntityEvent(event);
         }
     }

@@ -12,7 +12,7 @@ public class TelegramNotifier extends Notifier {
     List<String> chatIds;
 
     public TelegramNotifier(String token, List<String> chat_ids, FileConfiguration config) {
-        super(config);
+        super("telegram", config);
         this.bot = new TelegramRequester(token);
         this.chatIds = chat_ids;
     }
