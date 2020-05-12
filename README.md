@@ -11,18 +11,21 @@ Plugin for Spigot/Bukkit servers, it allows you to set up Telegram (for now) not
 ## Features
 _Items unchecked not yet implemented_
 
+* **General:**
+- [x] Disable ALL notifications for certain players
+- [x] Disable individual event notifications for certain players
+
 * **Notifiers:**
   - [x] Telegram Notifier
   - [ ] Discord Notifier
   - [ ] Webhook Notifier
-  - [ ] Http Notifier
-  - [ ] Custom Messages
+  - [x] Custom Messages
 * **Events:**
   - [x] On Player Join
   - [x] On Player Quit
   - [x] On Player Death
 
-> I only needed this events for now, if you would like more events to be supported please drop an [issue](https://github.com/nombrekeff/spigot-event-notifier/issues/new)
+> I only needed these events for now, if you would like more events to be supported please drop an [issue](https://github.com/nombrekeff/spigot-event-notifier/issues/new)
 
 
 ## Getting Started
