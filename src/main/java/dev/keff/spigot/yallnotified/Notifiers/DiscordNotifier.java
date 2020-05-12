@@ -1,7 +1,8 @@
-package dev.keff.spigot.yallnotified;
+package dev.keff.spigot.yallnotified.Notifiers;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
+import dev.keff.spigot.yallnotified.Notifier;
 import discord4j.core.DiscordClient;
 import discord4j.core.DiscordClientBuilder;
 
@@ -15,6 +16,7 @@ public class DiscordNotifier extends Notifier {
     }
 
     @Override
+	protected
     void notify(String message) {
         // TODO Auto-generated method stub
     }

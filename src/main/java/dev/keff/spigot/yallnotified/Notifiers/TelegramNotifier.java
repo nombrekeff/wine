@@ -1,8 +1,11 @@
-package dev.keff.spigot.yallnotified;
+package dev.keff.spigot.yallnotified.Notifiers;
 
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
+
+import dev.keff.spigot.yallnotified.Notifier;
+import dev.keff.spigot.yallnotified.TelegramRequester;
 
 public class TelegramNotifier extends Notifier {
     TelegramRequester bot;
@@ -15,7 +18,7 @@ public class TelegramNotifier extends Notifier {
     }
 
     @Override
-    void notify(String message) {
+    protected void notify(String message) {
         for (int i = 0; i < this.chatIds.size(); i++) {
             String id = this.chatIds.get(i);
             this.bot.sendMessage(id, message);

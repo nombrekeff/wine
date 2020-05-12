@@ -1,7 +1,7 @@
 # Config for plugin
 update_checker: true
 
-ignored_players: # ignores events for players (for all notifiers)
+ignored_players: # ignores events for players and entities (for all notifiers)
     - nombrekeff
 
 discord:
@@ -26,5 +26,5 @@ telegram:
         PlayerJoinEvent: '{name}, joined the server!'
         PlayerQuitEvent: '{name}, left the server!'
         PlayerDeathEvent: '{name} died at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
-    ignored_players:  # ignores events for players (for this notifiers)
+    ignored_players:  # ignores events for players and entities (for this notifiers)
         - nombrekeff

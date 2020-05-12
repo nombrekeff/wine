@@ -11,7 +11,7 @@ import org.bukkit.Bukkit;
 public class TelegramRequester {
     String token;
 
-    TelegramRequester(final String token) {
+    public TelegramRequester(final String token) {
         this.token = token;
     }
 
