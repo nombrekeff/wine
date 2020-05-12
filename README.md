@@ -1,4 +1,4 @@
-# Wine - Spigot Notifier
+# :wine_glass: Wine - Spigot Notifier
 
 Spigot/bukkit notifier plugin, you can send messages to **Telegram**, notify against a **Webhook** or to **Discord** servers (WIP). **Customize messages**, enable/disable events for certain users, or mute events as you please. Adds a set of utility commands for simpler management.
 
@@ -23,8 +23,14 @@ _Items unchecked not yet implemented_
   - [x] On Player Quit
   - [x] On Player Death
 
-> I only needed these events for now, if you would like more events to be supported please drop an [issue](https://github.com/nombrekeff/wine/issues/new)
-
+## Table of Content
+  - [Features](#features)
+  - [Table of Content](#table-of-content)
+  - [Getting Started](#getting-started)
+  - [Commands](#commands)
+  - [Config](#config)
+  - [Events](#events)
+  - [Bug?](#found-a-bug-or-have-some-feature-you-would-like)
 
 ## Getting Started
 1. Download [latest release](https://github.com/nombrekeff/wine/releases)
@@ -32,10 +38,14 @@ _Items unchecked not yet implemented_
 3. Restart server
 4. A config file is generated under `server/plugins/Wine/config.yml`, see [config](#config).
 
-##Â Commands
-* `/yn <ignore|unignore> <player> [notifier]` - ignore events for user, for notifier or in general if notifier is omitted
+## Commands
+* `/yn ignore <player> [notifier]` - ignore events for user, if notifier is omitted it is omitted in all
+* `/yn unignore` - unignore events for user
 
-##Â Permissions
+* `/yn enable <notifier>` - ignore events for user, if notifier is omitted it is omitted in all
+* `/yn disable <notifier>` - unignore events for user
+
+## Permissions
 * `yn.commands` allows a player to execute commands
 
 ## Config
@@ -74,3 +84,13 @@ telegram:
     PlayerDeathEvent: 
       format: '{name} died in {world}, at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
 ```
+
+## Events
+* PlayerJoinEvent 
+* PlayerQuitEvent 
+* PlayerDeathEvent 
+
+> I only needed these events for now, if you would like more events to be supported please drop an [issue](https://github.com/nombrekeff/wine/issues/new)
+
+## Found a Bug or Have Some Feature You Would Like?
+
