@@ -2,10 +2,15 @@ package dev.keff.spigot.yallnotified;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import dev.keff.spigot.yallnotified.Exceptions.MissingConfigException;
+import dev.keff.spigot.yallnotified.Notifiers.TelegramNotifier;
+import dev.keff.spigot.yallnotified.Notifiers.WebhookNotifier;
 
 public class App extends JavaPlugin {
     @Override
@@ -20,9 +25,12 @@ public class App extends JavaPlugin {
 
         // Only add telegram notifier if enabled
         if (config.getBoolean("telegram.enabled")) {
-            String TG_TOKEN = config.getString("telegram.token");
-            List<String> TG_CHAT_IDS = config.getStringList("telegram.chat_ids");
-            notifiers.add(new TelegramNotifier(TG_TOKEN, TG_CHAT_IDS, config));
+            try {
+                notifiers.add(new TelegramNotifier(config));
+            } catch (MissingConfigException e) {
+                logger.log(Level.SEVERE, e.getMessage());
+                e.printStackTrace();
+            }
             logger.info("[Telegram Notifier]: Enabled");
         }
 
@@ -38,8 +46,8 @@ public class App extends JavaPlugin {
         if (config.getBoolean("webhook.enabled")) {
             // String TG_TOKEN = config.getString("telegram.token");
             // List<String> TG_CHAT_IDS = config.getStringList("telegram.chat_ids");
-            // notifiers.add(new TelegramNotifier(TG_TOKEN, TG_CHAT_IDS, config));
-            // logger.info("[Telegram Notifier]: Enabled");
+            notifiers.add(new WebhookNotifier(config));
+            logger.info("[WebhookNotifier]: Enabled");
         }
 
         // Register event listener

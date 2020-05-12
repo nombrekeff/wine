@@ -6,10 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
 abstract public class Notifier {
-    Logger logger;
-    FileConfiguration config;
-
+    public Logger logger;
     public String notifierName;
+    protected FileConfiguration config;
 
     public Notifier(String name, FileConfiguration config) {
         this.logger = Bukkit.getLogger();
