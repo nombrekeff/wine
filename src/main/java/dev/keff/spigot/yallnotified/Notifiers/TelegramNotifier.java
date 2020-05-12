@@ -33,7 +33,7 @@ public class TelegramNotifier extends Notifier {
             String chatId = this.chatIds.get(i);
             this.logger.info(Color.GREEN + " Telegram Notify  " + chatId);
             String url = this.createUrlForChat(chatId, message);
-            this.httpRequester.post(url);
+            this.httpRequester.fetch(url);
         }
     }
 }

@@ -21,7 +21,6 @@ webhook:
     enabled: false
     enpoint: https://webhook.site/d50cdcbe-6d53-4a23-8d67-eec726235f26
     method: POST
-    encoding: json # json|text|base64
     # ignores events for players and entities (for this notifiers)
     ignored_players: [] 
     events:

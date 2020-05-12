@@ -1,12 +1,11 @@
 # YallNotified (aka Wine)
 
-Plugin for Spigot/Bukkit servers, it allows you to set up Telegram (for now) notifications for specific events, when a user joins or quits the game, etc...
+Spigot/bukkit notifier plugin, you can send messages to Telegram, notify against a Webhook or to Discord servers (WIP). Customize messages, enable/disable events for certain users, or mute events as you please. Adds a set of utility commands for simpler management.
 
 ****
 > ### NOTICE
-> THIS PLUGIN IS UNDER DEVELOPMENT, IT MIGHT BE UNSTABLE OR FEATURES MIGHT CHANGE, **USE AT YOUR OWN RISK**.
+> Plugin in early stages, is mostly stable but some features might be missing. 
 ****
-
 
 ## Features
 _Items unchecked not yet implemented_
@@ -14,12 +13,11 @@ _Items unchecked not yet implemented_
 * **General:**
 - [x] Disable ALL notifications for certain players
 - [x] Disable individual event notifications for certain players
-
 * **Notifiers:**
   - [x] Telegram Notifier
-  - [ ] Discord Notifier <kbd>WIP</kbd>
-  - [ ] Webhook Notifier
   - [x] Custom Messages
+  - [ ] Webhook Notifier <kbd>usable, needs work</kbd>
+  - [ ] Discord Notifier <kbd>WIP</kbd>
 * **Events:**
   - [x] On Player Join
   - [x] On Player Quit
@@ -59,7 +57,7 @@ telegram:
   # Your telegram bot token
   token: TELEGRAM_TOKEN
 
-  #Â List of chats to which to notify
+  # List of chats to which to notify
   chat_ids: []
   
   # ignores events for players and entities (for this notifiers)
