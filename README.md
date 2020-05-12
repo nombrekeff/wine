@@ -93,4 +93,4 @@ telegram:
 > I only needed these events for now, if you would like more events to be supported please drop an [issue](https://github.com/nombrekeff/wine/issues/new)
 
 ## Found a Bug or Have Some Feature You Would Like?
-
+If so, please drop an [issue](https://github.com/nombrekeff/wine/issues/new).
