@@ -36,21 +36,38 @@ _Items unchecked not yet implemented_
 
 
 ## Config
+Basic config, see [config.yml](./src/main/resources/config.yml) for more detailed info.
+
 ```yaml
-# config.yml
+# YallNotified/config.yml
 
 # Config for plugin
 update_checker: true
-telegram:                   # Config for Telegram notifier
-    enabled: false          # enable this notifier
-    token: TELEGRAM_TOKEN   # telegram bot token
-    chat_ids: []            # list of chat ids to wich to notify
-    events:
-        PlayerJoinEvent: false
-        PlayerQuitEvent: false
-        PlayerDeathEvent: false
-    message_formats:
-        PlayerJoinEvent: '{name}, joined the server!'
-        PlayerQuitEvent: '{name}, left the server!'
-        PlayerDeathEvent: '{name} died at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
+
+# ignores events for players and entities (for all notifiers)
+ignored_players:
+  - nombrekeff
+
+telegram:
+  enabled: false
+
+  # Your telegram bot token
+  token: TELEGRAM_TOKEN
+
+  # List of chats to which to notify
+  chat_ids: []
+  
+  # ignores events for players and entities (for this notifiers)
+  ignored_players: 
+    - nombrekeff
+
+  # List of events this notifier will send
+  events:
+    PlayerJoinEvent: 
+      format: '{name}, joined the server!'
+    PlayerQuitEvent: 
+      enabled: false
+      format: '{name}, left the server!'
+    PlayerDeathEvent: 
+      format: '{name} died in {world}, at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
 ```
