@@ -1,30 +1,48 @@
 # Config for plugin
 update_checker: true
 
-ignored_players: # ignores events for players and entities (for all notifiers)
+# ignores events for players and entities (for all notifiers)
+ignored_players:
     - nombrekeff
+
+# AVAILABLE NOTIFIERS
 
 discord:
     enabled: false
     token: TOKEN
-
+    events:
+        PlayerJoinEvent: 
+            format: '{name}, joined the server!'
+        PlayerQuitEvent: 
+            format: '{name}, left the server!'
+        PlayerDeathEvent: 
+            format: '{name} died in {world}, at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
+            
 webhook:
     enabled: false
     enpoint: https://webhook.site/d50cdcbe-6d53-4a23-8d67-eec726235f26
     method: POST
     encoding: json # json|text|base64
+    ignored_players:  # ignores events for players and entities (for this notifiers)
+        - nombrekeff
+    events:
+        PlayerJoinEvent: 
+            format: '{name}, joined the server!'
+        PlayerQuitEvent: 
+            format: '{name}, left the server!'
+        PlayerDeathEvent: 
+            format: '{name} died in {world}, at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
 
 telegram:
     enabled: false
     token: TELEGRAM_TOKEN
     chat_ids: []
-    events:
-        PlayerJoinEvent: false
-        PlayerQuitEvent: false
-        PlayerDeathEvent: false
-    message_formats:
-        PlayerJoinEvent: '{name}, joined the server!'
-        PlayerQuitEvent: '{name}, left the server!'
-        PlayerDeathEvent: '{name} died in {world}, at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
     ignored_players:  # ignores events for players and entities (for this notifiers)
         - nombrekeff
+    events:
+        PlayerJoinEvent: 
+            format: '{name}, joined the server!'
+        PlayerQuitEvent: 
+            format: '{name}, left the server!'
+        PlayerDeathEvent: 
+            format: '{name} died in {world}, at x: {death_x} y: {death_y} z: {death_z} {death_cause}'

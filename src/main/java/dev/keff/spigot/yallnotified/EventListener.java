@@ -49,43 +49,58 @@ public class EventListener implements Listener {
         return true;
     }
 
+    boolean isEventEnabled(String eventName) {
+        boolean isEventSetInConfig = config.isSet("telegram.events." + eventName);
+
+        boolean isEnabledSetInEventConfig = config.isSet("telegram.events." + eventName + ".enabled");
+        boolean isEnabled = config.getBoolean("telegram.events." + eventName + ".enabled");
+
+        boolean eventDisabledByUser = isEnabledSetInEventConfig && !isEnabled;
+
+        return isEventSetInConfig && !(eventDisabledByUser);
+    }
+
     public void notifyPlayerEvent(PlayerEvent event) {
         String eventName = event.getEventName();
-        this.logger.info("eventName: " + eventName);
+        boolean eventIsEnabled = isEventEnabled(eventName);
 
-        if (config.isSet("telegram.events." + eventName)) {
+        this.logger.info("eventName: " + eventName + " | enabled: " + eventIsEnabled);
+
+        if (eventIsEnabled) {
             String name = event.getPlayer().getName();
-            Map<String, String> values = new HashMap<>();
-            values.put("name", name);
+            Map<String, String> interpolationParams = new HashMap<>();
+            interpolationParams.put("name", name);
 
-            String outputMsg = formatMessage("telegram.message_formats." + eventName, values);
-            this.notifyToAll(name, outputMsg);
+            String outputMsg = formatMessage("telegram.message_formats." + eventName, interpolationParams);
+            this.notifyToAllNotifiers(name, outputMsg);
         }
     }
 
     public void notifyEntityEvent(EntityEvent event) {
         String eventName = event.getEventName();
-        this.logger.info("eventName: " + eventName);
+        boolean eventIsEnabled = isEventEnabled(eventName);
 
-        if (config.isSet("telegram.events." + eventName)) {
+        this.logger.info("eventName: " + eventName + " | enabled: " + eventIsEnabled);
+
+        if (eventIsEnabled) {
             Entity entity = event.getEntity();
             String name = entity.getName();
             Location deathLocation = entity.getLocation();
 
-            Map<String, String> values = new HashMap<>();
-            values.put("name", name);
-            values.put("death_x", String.format("%.2f", deathLocation.getX()));
-            values.put("death_y", String.format("%.2f", deathLocation.getY()));
-            values.put("death_z", String.format("%.2f", deathLocation.getZ()));
-            values.put("death_cause", entity.getLastDamageCause().getCause().name());
-            values.put("world", deathLocation.getWorld().getName());
+            Map<String, String> interpolationParams = new HashMap<>();
+            interpolationParams.put("name", name);
+            interpolationParams.put("death_x", String.format("%.2f", deathLocation.getX()));
+            interpolationParams.put("death_y", String.format("%.2f", deathLocation.getY()));
+            interpolationParams.put("death_z", String.format("%.2f", deathLocation.getZ()));
+            interpolationParams.put("death_cause", entity.getLastDamageCause().getCause().name());
+            interpolationParams.put("world", deathLocation.getWorld().getName());
 
-            String outputMsg = formatMessage("telegram.message_formats." + eventName, values);
-            this.notifyToAll(name, outputMsg);
+            String outputMsg = formatMessage("telegram.message_formats." + eventName, interpolationParams);
+            this.notifyToAllNotifiers(name, outputMsg);
         }
     }
 
-    public void notifyToAll(String user, String message) {
+    public void notifyToAllNotifiers(String user, String message) {
         for (int index = 0; index < notifiers.size(); index++) {
             Notifier notif = notifiers.get(index);
             if (notif.canNotifyUser(user)) {
