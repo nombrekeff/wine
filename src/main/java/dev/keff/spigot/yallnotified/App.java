@@ -32,31 +32,26 @@ public class App extends JavaPlugin {
         config.options().copyDefaults(true);
         this.saveConfig();
 
-        // Only add telegram notifier if enabled
-        if (config.getBoolean("telegram.enabled")) {
-            try {
+        try {
+            // Only add telegram notifier if enabled
+            if (config.getBoolean("telegram.enabled")) {
                 notifiers.add(new TelegramNotifier(config));
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, "ERR: " + e.getMessage());
-                e.printStackTrace();
+                logger.info("[Telegram Notifier]: Enabled");
             }
-            logger.info("[Telegram Notifier]: Enabled");
-        }
 
-        // Only add discord notifier if enabled
-        if (config.getBoolean("discord.enabled")) {
-            // String TG_TOKEN = config.getString("telegram.token");
-            // List<String> TG_CHAT_IDS = config.getStringList("telegram.chat_ids");
-            // notifiers.add(new TelegramNotifier(TG_TOKEN, TG_CHAT_IDS, config));
-            // logger.info("[Telegram Notifier]: Enabled");
-        }
+            // Only add discord notifier if enabled
+            if (config.getBoolean("discord.enabled")) {
+                // TODO
+            }
 
-        // webhook notifier
-        if (config.getBoolean("webhook.enabled")) {
-            // String TG_TOKEN = config.getString("telegram.token");
-            // List<String> TG_CHAT_IDS = config.getStringList("telegram.chat_ids");
-            notifiers.add(new WebhookNotifier(config));
-            logger.info("[WebhookNotifier]: Enabled");
+            // webhook notifier
+            if (config.getBoolean("webhook.enabled")) {
+                notifiers.add(new WebhookNotifier(config));
+                logger.info("[WebhookNotifier]: Enabled");
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "ERR: " + e.getMessage());
+            e.printStackTrace();
         }
 
         // Register event listener
