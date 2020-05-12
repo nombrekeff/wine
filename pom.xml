@@ -6,7 +6,7 @@
 
   <groupId>dev.keff.spigot.yallnotified</groupId>
   <artifactId>YallNotified</artifactId>
-  <version>0.0.1-beta1</version>
+  <version>0.0.1-beta3</version>
 
   <name>YallNotified</name>
   <!-- FIXME change it to the project's website -->
@@ -31,6 +31,11 @@
       <artifactId>spigot-api</artifactId>
       <version>1.15.2-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.discord4j</groupId>
+      <artifactId>discord4j-core</artifactId>
+      <version>3.1.0.M1</version>
     </dependency>
   </dependencies>
   <build>

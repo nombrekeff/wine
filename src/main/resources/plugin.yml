@@ -1,8 +1,8 @@
 main: dev.keff.spigot.yallnotified.App
 name: YallNotified
-version: 0.1-DEV
+version: 0.0.1-beta3
 
 commands:
-    ncoords:
-       description: Shows nether coordenates for overworld location 
-       usage: /<command> [x] [z]
+    yn:
+       description: YallNotified utility commands
+       usage: /<command> <subcommand> [args..]

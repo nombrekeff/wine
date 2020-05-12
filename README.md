@@ -1,4 +1,4 @@
-# YallNotified
+# YallNotified (aka Wine)
 
 Plugin for Spigot/Bukkit servers, it allows you to set up Telegram (for now) notifications for specific events, when a user joins or quits the game, etc...
 
@@ -11,18 +11,21 @@ Plugin for Spigot/Bukkit servers, it allows you to set up Telegram (for now) not
 ## Features
 _Items unchecked not yet implemented_
 
+* **General:**
+- [x] Disable ALL notifications for certain players
+- [x] Disable individual event notifications for certain players
+
 * **Notifiers:**
   - [x] Telegram Notifier
   - [ ] Discord Notifier <kbd>WIP</kbd>
   - [ ] Webhook Notifier
-  - [ ] Http Notifier
-  - [ ] Custom Messages
+  - [x] Custom Messages
 * **Events:**
   - [x] On Player Join
   - [x] On Player Quit
   - [x] On Player Death
 
-> I only needed this events for now, if you would like more events to be supported please drop an [issue](https://github.com/nombrekeff/spigot-event-notifier/issues/new)
+> I only needed these events for now, if you would like more events to be supported please drop an [issue](https://github.com/nombrekeff/spigot-event-notifier/issues/new)
 
 
 ## Getting Started
@@ -31,23 +34,45 @@ _Items unchecked not yet implemented_
 3. Restart server
 4. A config file is generated under `server/plugins/YallNotified/config.yml`, see [config](#config).
 
+## Commands
+* `/yn <ignore|unignore> <player> [notifier]` - ignore events for user, for notifier or in general if notifier is omitted
+
+## Permissions
+* `yn.commands` allows a player to execute commands
 
 ## Config
+Basic config, see [config.yml](./src/main/resources/config.yml) for more detailed info.
+
 ```yaml
-# config.yml
+# YallNotified/config.yml
 
 # Config for plugin
 update_checker: true
-telegram:                   # Config for Telegram notifier
-    enabled: false          # enable this notifier
-    token: TELEGRAM_TOKEN   # telegram bot token
-    chat_ids: []            # list of chat ids to wich to notify
-    events:
-        PlayerJoinEvent: false
-        PlayerQuitEvent: false
-        PlayerDeathEvent: false
-    message_formats:
-        PlayerJoinEvent: '{name}, joined the server!'
-        PlayerQuitEvent: '{name}, left the server!'
-        PlayerDeathEvent: '{name} died at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
+
+# ignores events for players and entities (for all notifiers)
+ignored_players:
+  - nombrekeff
+
+telegram:
+  enabled: false
+
+  # Your telegram bot token
+  token: TELEGRAM_TOKEN
+
+  # List of chats to which to notify
+  chat_ids: []
+  
+  # ignores events for players and entities (for this notifiers)
+  ignored_players: 
+    - nombrekeff
+
+  # List of events this notifier will send
+  events:
+    PlayerJoinEvent: 
+      format: '{name}, joined the server!'
+    PlayerQuitEvent: 
+      enabled: false
+      format: '{name}, left the server!'
+    PlayerDeathEvent: 
+      format: '{name} died in {world}, at x: {death_x} y: {death_y} z: {death_z} {death_cause}'
 ```
