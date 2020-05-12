@@ -1,4 +1,4 @@
-package dev.keff.spigot.yallnotified.commands;
+package dev.keff.spigot.wine.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import dev.keff.spigot.yallnotified.App;
+import dev.keff.spigot.wine.App;
 
 // TODO: refactor the shit out of this, research a better way of adding subcommands
 public class YnCommand implements CommandExecutor, TabCompleter {

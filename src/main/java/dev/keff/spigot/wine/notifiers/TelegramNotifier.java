@@ -1,10 +1,10 @@
-package dev.keff.spigot.yallnotified.notifiers;
+package dev.keff.spigot.wine.notifiers;
 
 import java.util.List;
 
 import org.bukkit.Color;
 import org.bukkit.configuration.file.FileConfiguration;
-import dev.keff.spigot.yallnotified.HttpRequester;
+import dev.keff.spigot.wine.HttpRequester;
 
 public class TelegramNotifier extends Notifier {
     HttpRequester httpRequester = new HttpRequester();

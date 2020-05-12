@@ -1,4 +1,4 @@
-package dev.keff.spigot.yallnotified;
+package dev.keff.spigot.wine;
 
 import com.google.common.base.Preconditions;
 import com.google.common.io.Resources;
@@ -6,7 +6,7 @@ import com.google.common.net.HttpHeaders;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import dev.keff.spigot.yallnotified.enums.VersionResponse;
+import dev.keff.spigot.wine.enums.VersionResponse;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

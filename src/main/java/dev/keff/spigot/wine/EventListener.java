@@ -1,4 +1,4 @@
-package dev.keff.spigot.yallnotified;
+package dev.keff.spigot.wine;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import dev.keff.spigot.yallnotified.notifiers.Notifier;
+import dev.keff.spigot.wine.notifiers.Notifier;
 
 public class EventListener implements Listener {
     List<Notifier> notifiers;

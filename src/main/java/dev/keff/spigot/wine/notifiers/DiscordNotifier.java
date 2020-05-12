@@ -1,4 +1,4 @@
-package dev.keff.spigot.yallnotified.notifiers;
+package dev.keff.spigot.wine.notifiers;
 
 import org.bukkit.configuration.file.FileConfiguration;
 

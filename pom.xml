@@ -4,11 +4,11 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>dev.keff.spigot.yallnotified</groupId>
-  <artifactId>YallNotified</artifactId>
+  <groupId>dev.keff.spigot.wine</groupId>
+  <artifactId>Wine</artifactId>
   <version>0.0.2</version>
 
-  <name>YallNotified</name>
+  <name>Wine</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 

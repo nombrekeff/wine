@@ -1,4 +1,4 @@
-package dev.keff.spigot.yallnotified;
+package dev.keff.spigot.wine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,10 +11,10 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import dev.keff.spigot.yallnotified.commands.YnCommand;
-import dev.keff.spigot.yallnotified.notifiers.TelegramNotifier;
-import dev.keff.spigot.yallnotified.notifiers.WebhookNotifier;
-import dev.keff.spigot.yallnotified.notifiers.Notifier;
+import dev.keff.spigot.wine.commands.YnCommand;
+import dev.keff.spigot.wine.notifiers.TelegramNotifier;
+import dev.keff.spigot.wine.notifiers.WebhookNotifier;
+import dev.keff.spigot.wine.notifiers.Notifier;
 
 public class App extends JavaPlugin {
 
@@ -60,13 +60,13 @@ public class App extends JavaPlugin {
         // Register commands
         List<String> aliases = new ArrayList<String>();
         aliases.add("/yall");
-        aliases.add("/yallnotified");
+        aliases.add("/wine");
         aliases.add("/yn");
 
         PluginCommand command = this.getCommand("yn");
         YnCommand cmd = new YnCommand(config);
 
-        // command.setPermission("yallnotified.commands");
+        // command.setPermission("wine.commands");
         command.setTabCompleter(cmd);
         command.setAliases(aliases);
         command.setExecutor(cmd);
@@ -77,7 +77,7 @@ public class App extends JavaPlugin {
                 switch (versionResponse) {
                     case FOUND_NEW:
                         Bukkit.broadcastMessage("New version of the plugin was found: " + version
-                                + " Download it at https://www.spigotmc.org/resources/yallnotified.77962/");
+                                + " Download it at https://www.spigotmc.org/resources/wine.77962/");
                         break;
                     case UNAVAILABLE:
                         Bukkit.broadcastMessage("Unable to perform an update check.");

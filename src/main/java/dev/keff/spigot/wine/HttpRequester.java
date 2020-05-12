@@ -1,4 +1,4 @@
-package dev.keff.spigot.yallnotified;
+package dev.keff.spigot.wine;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

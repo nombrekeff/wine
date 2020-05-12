@@ -1,8 +1,8 @@
-main: dev.keff.spigot.yallnotified.App
-name: YallNotified
+main: dev.keff.spigot.wine.App
+name: Wine
 version: 0.0.2
 
 commands:
     yn:
-       description: YallNotified utility commands
+       description: Wine utility commands
        usage: /<command> <subcommand> [args..]

@@ -1,4 +1,4 @@
-package dev.keff.spigot.yallnotified.notifiers;
+package dev.keff.spigot.wine.notifiers;
 
 import java.util.List;
 import java.util.logging.Logger;

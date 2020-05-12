@@ -1,4 +1,4 @@
-package dev.keff.spigot.yallnotified.notifiers;
+package dev.keff.spigot.wine.notifiers;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -6,7 +6,7 @@ import java.util.Date;
 import com.google.gson.JsonObject;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import dev.keff.spigot.yallnotified.HttpRequester;
+import dev.keff.spigot.wine.HttpRequester;
 
 public class WebhookNotifier extends Notifier {
     HttpRequester httpRequester = new HttpRequester();

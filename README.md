@@ -42,7 +42,7 @@ _Items unchecked not yet implemented_
 Basic config, see [config.yml](./src/main/resources/config.yml) for more detailed info.
 
 ```yaml
-# YallNotified/config.yml
+# Wine/config.yml
 
 # Config for plugin
 update_checker: true
