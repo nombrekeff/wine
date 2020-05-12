@@ -1,6 +1,6 @@
 # Wine - Spigot Notifier
 
-Spigot/bukkit notifier plugin, you can send messages to Telegram, notify against a Webhook or to Discord servers (WIP). Customize messages, enable/disable events for certain users, or mute events as you please. Adds a set of utility commands for simpler management.
+Spigot/bukkit notifier plugin, you can send messages to **Telegram**, notify against a **Webhook** or to **Discord** servers (WIP). **Customize messages**, enable/disable events for certain users, or mute events as you please. Adds a set of utility commands for simpler management.
 
 ****
 > ### NOTICE
