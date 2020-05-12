@@ -43,9 +43,10 @@ public class EventListener implements Listener {
      * @default true
      */
     boolean isUserNotifiableGlobaly(String name) {
-        if (this.config.isList("ignored_players")) {
+        if (this.config.isSet("ignored_players")) {
             List<String> ignoredUsers = this.config.getStringList("ignored_players");
-            return !ignoredUsers.contains(name);
+            boolean canNotify = !ignoredUsers.contains(name);
+            this.logger.info("EventListener.isUserNotifiableGlobaly (" + name + "): " + canNotify);
         }
 
         return true;
@@ -59,7 +60,9 @@ public class EventListener implements Listener {
 
         boolean eventDisabledByUser = isEnabledSetInEventConfig && !isEnabled;
 
-        return isEventSetInConfig && !(eventDisabledByUser);
+        boolean isEventEnabled = isEventSetInConfig && !(eventDisabledByUser);
+        this.logger.info("EventListener.isEventEnabled (" + eventName + "): " + isEventEnabled);
+        return isEventEnabled;
     }
 
     public void notifyPlayerEvent(PlayerEvent event) {
@@ -73,7 +76,7 @@ public class EventListener implements Listener {
             Map<String, String> interpolationParams = new HashMap<>();
             interpolationParams.put("name", name);
 
-            String outputMsg = formatMessage("telegram.message_formats." + eventName, interpolationParams);
+            String outputMsg = formatMessage("telegram.events." + eventName + ".format", interpolationParams);
             this.notifyToAllNotifiers(name, outputMsg);
         }
     }
@@ -97,7 +100,7 @@ public class EventListener implements Listener {
             interpolationParams.put("death_cause", entity.getLastDamageCause().getCause().name());
             interpolationParams.put("world", deathLocation.getWorld().getName());
 
-            String outputMsg = formatMessage("telegram.message_formats." + eventName, interpolationParams);
+            String outputMsg = formatMessage("telegram.events." + eventName + ".format", interpolationParams);
             this.notifyToAllNotifiers(name, outputMsg);
         }
     }

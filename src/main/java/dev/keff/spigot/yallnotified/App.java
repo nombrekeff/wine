@@ -27,7 +27,7 @@ public class App extends JavaPlugin {
         logger.info("Enabling...");
 
         // Save config
-        config.options().copyDefaults(true);
+        // config.options().copyDefaults(true);
         this.saveConfig();
 
         // Only add telegram notifier if enabled
@@ -66,7 +66,7 @@ public class App extends JavaPlugin {
         aliases.add("/yallnotified");
         aliases.add("/yn");
 
-        PluginCommand command = this.getCommand("/yn");
+        PluginCommand command = this.getCommand("yn");
         IgnorePlayerCommand cmd = new IgnorePlayerCommand(config);
         command.setTabCompleter(cmd);
         command.setAliases(aliases);

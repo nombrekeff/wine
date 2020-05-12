@@ -17,9 +17,11 @@ abstract public class Notifier {
     }
 
     public boolean canNotifyUser(String name) {
-        if (this.config.isList("telegram.ignored_players")) {
+        if (this.config.isSet("telegram.ignored_players")) {
             List<String> ignoredUsers = this.config.getStringList(this.notifierName + ".ignored_players");
-            return !ignoredUsers.contains(name);
+            boolean canNotify = !ignoredUsers.contains(name);
+            this.logger.info("Notifier.canNotifyUser (" + name + "): " + canNotify);
+            return canNotify;
         }
 
         return true;

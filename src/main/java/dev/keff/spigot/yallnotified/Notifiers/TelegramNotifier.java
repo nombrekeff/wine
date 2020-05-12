@@ -2,6 +2,7 @@ package dev.keff.spigot.yallnotified.notifiers;
 
 import java.util.List;
 
+import org.bukkit.Color;
 import org.bukkit.configuration.file.FileConfiguration;
 import dev.keff.spigot.yallnotified.HttpRequester;
 
@@ -27,8 +28,10 @@ public class TelegramNotifier extends Notifier {
 
     @Override
     public void notify(String message) {
+        this.logger.info(Color.GREEN + " Telegram Notify");
         for (int i = 0; i < this.chatIds.size(); i++) {
             String chatId = this.chatIds.get(i);
+            this.logger.info(Color.GREEN + " Telegram Notify  " + chatId);
             String url = this.createUrlForChat(chatId, message);
             this.httpRequester.post(url);
         }

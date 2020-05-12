@@ -60,18 +60,21 @@ public class IgnorePlayerCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
-
+        Bukkit.getLogger().info("tabComplete cmd " + cmd.getName());
+        Bukkit.getLogger().info("tabComplete sender instanceof Player " + (sender instanceof Player));
         if (sender instanceof Player && cmd.getName() == "yn") {
             List<String> newList = new ArrayList<String>();
 
+            Bukkit.getLogger().info("Args: " + args.length);
+
             // Subcomand argument
-            if (args.length == 0) {
+            if (args.length == 1) {
                 newList.add("ignore");
                 newList.add("unignore");
             }
 
             // Player argument
-            else if (args.length == 1) {
+            else if (args.length == 2) {
                 // They started typing username
                 if (args[0] != "") {
                     for (Player player : Bukkit.getOnlinePlayers()) {
@@ -87,7 +90,7 @@ public class IgnorePlayerCommand implements CommandExecutor, TabCompleter {
             }
 
             // Noitifier argument
-            else if (args.length == 2) {
+            else if (args.length == 3) {
                 if (args[0] != "") {
                     for (String notif : App.NOTIFIERS) {
                         if (notif.toLowerCase().startsWith(args[0].toLowerCase())) {
