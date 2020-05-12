@@ -1,4 +1,4 @@
-# YallNotified (aka Wine)
+# Wine - Spigot Notifier
 
 Spigot/bukkit notifier plugin, you can send messages to Telegram, notify against a Webhook or to Discord servers (WIP). Customize messages, enable/disable events for certain users, or mute events as you please. Adds a set of utility commands for simpler management.
 
@@ -23,19 +23,19 @@ _Items unchecked not yet implemented_
   - [x] On Player Quit
   - [x] On Player Death
 
-> I only needed these events for now, if you would like more events to be supported please drop an [issue](https://github.com/nombrekeff/spigot-event-notifier/issues/new)
+> I only needed these events for now, if you would like more events to be supported please drop an [issue](https://github.com/nombrekeff/wine/issues/new)
 
 
 ## Getting Started
-1. Download [latest release](https://github.com/nombrekeff/spigot-event-notifier/releases)
-2. Copy `YallNotified.jar` to `server/plugins` folder
+1. Download [latest release](https://github.com/nombrekeff/wine/releases)
+2. Copy `Wine.jar` to `server/plugins` folder
 3. Restart server
-4. A config file is generated under `server/plugins/YallNotified/config.yml`, see [config](#config).
+4. A config file is generated under `server/plugins/Wine/config.yml`, see [config](#config).
 
-## Commands
+##Â Commands
 * `/yn <ignore|unignore> <player> [notifier]` - ignore events for user, for notifier or in general if notifier is omitted
 
-## Permissions
+##Â Permissions
 * `yn.commands` allows a player to execute commands
 
 ## Config
@@ -57,7 +57,7 @@ telegram:
   # Your telegram bot token
   token: TELEGRAM_TOKEN
 
-  #�List of chats to which to notify
+  # List of chats to which to notify
   chat_ids: []
   
   # ignores events for players and entities (for this notifiers)
