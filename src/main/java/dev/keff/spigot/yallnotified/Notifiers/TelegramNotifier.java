@@ -1,11 +1,11 @@
-package dev.keff.spigot.yallnotified.Notifiers;
+package dev.keff.spigot.yallnotified.notifiers;
 
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
 import dev.keff.spigot.yallnotified.Notifier;
-import dev.keff.spigot.yallnotified.Exceptions.MissingConfigException;
+import dev.keff.spigot.yallnotified.exceptions.MissingConfigException;
 import dev.keff.spigot.yallnotified.HttpRequester;
 
 public class TelegramNotifier extends Notifier {

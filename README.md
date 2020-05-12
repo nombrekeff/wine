@@ -34,6 +34,11 @@ _Items unchecked not yet implemented_
 3. Restart server
 4. A config file is generated under `server/plugins/YallNotified/config.yml`, see [config](#config).
 
+## Commands
+* `/yn <ignore|unignore> <player> [notifier]` - ignore events for user, for notifier or in general if notifier is omitted
+
+## Permissions
+* `yn.commands` allows a player to execute commands
 
 ## Config
 Basic config, see [config.yml](./src/main/resources/config.yml) for more detailed info.

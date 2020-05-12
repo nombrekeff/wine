@@ -3,6 +3,6 @@ name: YallNotified
 version: 0.1-DEV
 
 commands:
-    ncoords:
-       description: Shows nether coordenates for overworld location 
-       usage: /<command> [x] [z]
+    yn:
+       description: YallNotified utility commands
+       usage: /yn <ignore|unignore> <player> [notifier]

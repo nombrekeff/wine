@@ -5,14 +5,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import dev.keff.spigot.yallnotified.Exceptions.MissingConfigException;
-import dev.keff.spigot.yallnotified.Notifiers.TelegramNotifier;
-import dev.keff.spigot.yallnotified.Notifiers.WebhookNotifier;
+import dev.keff.spigot.yallnotified.commands.IgnorePlayerCommand;
+import dev.keff.spigot.yallnotified.exceptions.MissingConfigException;
+import dev.keff.spigot.yallnotified.notifiers.TelegramNotifier;
+import dev.keff.spigot.yallnotified.notifiers.WebhookNotifier;
 
 public class App extends JavaPlugin {
+
+    public static String[] NOTIFIERS = { "telegram", "webhoook", "discord" };
+
     @Override
     public void onEnable() {
         Logger logger = getLogger();
@@ -51,7 +56,17 @@ public class App extends JavaPlugin {
         }
 
         // Register event listener
-        getServer().getPluginManager().registerEvents(new EventListener(notifiers, config), this);
+        this.getServer().getPluginManager().registerEvents(new EventListener(notifiers, config), this);
+
+        // Register commands
+        List<String> aliases = new ArrayList<String>();
+        aliases.add("/yall");
+        aliases.add("/yallnotified");
+        aliases.add("/yn");
+
+        PluginCommand command = this.getCommand("/yn");
+        command.setAliases(aliases);
+        command.setExecutor(new IgnorePlayerCommand(config));
 
         // Setup update checker if enabled in config
         if (config.getBoolean("update_checker")) {
