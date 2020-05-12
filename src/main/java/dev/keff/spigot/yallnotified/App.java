@@ -1,22 +1,24 @@
 package dev.keff.spigot.yallnotified;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import dev.keff.spigot.yallnotified.commands.IgnorePlayerCommand;
+import dev.keff.spigot.yallnotified.commands.YnCommand;
 import dev.keff.spigot.yallnotified.notifiers.TelegramNotifier;
 import dev.keff.spigot.yallnotified.notifiers.WebhookNotifier;
 import dev.keff.spigot.yallnotified.notifiers.Notifier;
 
 public class App extends JavaPlugin {
 
-    public static String[] NOTIFIERS = { "telegram", "webhoook", "discord" };
+    public static List<String> NOTIFIERS = Arrays.asList("telegram", "webhook", "discord");
 
     @Override
     public void onEnable() {
@@ -27,7 +29,7 @@ public class App extends JavaPlugin {
         logger.info("Enabling...");
 
         // Save config
-        // config.options().copyDefaults(true);
+        config.options().copyDefaults(true);
         this.saveConfig();
 
         // Only add telegram notifier if enabled
@@ -67,20 +69,27 @@ public class App extends JavaPlugin {
         aliases.add("/yn");
 
         PluginCommand command = this.getCommand("yn");
-        IgnorePlayerCommand cmd = new IgnorePlayerCommand(config);
+        YnCommand cmd = new YnCommand(config);
+
+        // command.setPermission("yallnotified.commands");
         command.setTabCompleter(cmd);
         command.setAliases(aliases);
         command.setExecutor(cmd);
 
         // Setup update checker if enabled in config
         if (config.getBoolean("update_checker")) {
-            new UpdateChecker(this, 77962).getVersion(version -> {
-                if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                    logger.info("Update detected! You are using version " + this.getDescription().getVersion()
-                            + " and the latest version is " + version
-                            + "! Download it at https://www.spigotmc.org/resources/yallnotified.77962/");
+            UpdateChecker.of(this).resourceId(77962).handleResponse((versionResponse, version) -> {
+                switch (versionResponse) {
+                    case FOUND_NEW:
+                        Bukkit.broadcastMessage("New version of the plugin was found: " + version
+                                + " Download it at https://www.spigotmc.org/resources/yallnotified.77962/");
+                        break;
+                    case UNAVAILABLE:
+                        Bukkit.broadcastMessage("Unable to perform an update check.");
+                    default:
+                        break;
                 }
-            });
+            }).check();
         }
 
         logger.info("Enabled!");

@@ -5,4 +5,4 @@ version: 0.0.1-beta3
 commands:
     yn:
        description: YallNotified utility commands
-       usage: /yn <ignore|unignore> <player> [notifier]
+       usage: /<command> <subcommand> [args..]

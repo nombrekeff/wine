@@ -20,11 +20,14 @@ abstract public class Notifier {
         if (this.config.isSet("telegram.ignored_players")) {
             List<String> ignoredUsers = this.config.getStringList(this.notifierName + ".ignored_players");
             boolean canNotify = !ignoredUsers.contains(name);
-            this.logger.info("Notifier.canNotifyUser (" + name + "): " + canNotify);
             return canNotify;
         }
 
         return true;
+    }
+
+    public boolean isEnabled() {
+        return this.config.getBoolean("telegram.enabled", false);
     }
 
     public abstract void notify(String message);

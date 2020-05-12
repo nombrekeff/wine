@@ -108,7 +108,7 @@ public class EventListener implements Listener {
     public void notifyToAllNotifiers(String user, String message) {
         for (int index = 0; index < notifiers.size(); index++) {
             Notifier notif = notifiers.get(index);
-            if (notif.canNotifyUser(user)) {
+            if (notif.isEnabled() && notif.canNotifyUser(user)) {
                 notif.notify(message);
             }
         }

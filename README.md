@@ -1,4 +1,4 @@
-# YallNotified
+# YallNotified (aka Wine)
 
 Plugin for Spigot/Bukkit servers, it allows you to set up Telegram (for now) notifications for specific events, when a user joins or quits the game, etc...
 

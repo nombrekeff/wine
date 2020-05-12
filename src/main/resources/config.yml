@@ -6,7 +6,6 @@ ignored_players:
     - nombrekeff
 
 # AVAILABLE NOTIFIERS
-
 discord:
     enabled: false
     token: TOKEN
@@ -23,8 +22,8 @@ webhook:
     enpoint: https://webhook.site/d50cdcbe-6d53-4a23-8d67-eec726235f26
     method: POST
     encoding: json # json|text|base64
-    ignored_players:  # ignores events for players and entities (for this notifiers)
-        - nombrekeff
+    # ignores events for players and entities (for this notifiers)
+    ignored_players: [] 
     events:
         PlayerJoinEvent: 
             format: '{name}, joined the server!'
@@ -37,8 +36,8 @@ telegram:
     enabled: false
     token: TELEGRAM_TOKEN
     chat_ids: []
-    ignored_players:  # ignores events for players and entities (for this notifiers)
-        - nombrekeff
+    # ignores events for players and entities (for this notifiers)
+    ignored_players: []
     events:
         PlayerJoinEvent: 
             format: '{name}, joined the server!'
